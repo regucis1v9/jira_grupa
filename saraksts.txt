@@ -1,0 +1,17 @@
+logins ar password recovery
+
+uzdevumu DB
+
+uzdevumu izvade
+
+uzdevumu ievade
+
+uzdevumu atzimensana 
+
+uzdevumu delete
+
+darbu kalendars
+
+search
+
+kkas papildus
