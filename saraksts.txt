@@ -15,3 +15,6 @@ search - easy regnars
 uzdevumu atzimensana - easy regnars
 
 logins ar password recovery - regnars
+
+
+figma https://www.figma.com/file/MSUWamMsKi1YuYxCTnFB7Z/Desktop-sign-up-and-login-pages-by-EditorM-(Community)?type=design&node-id=0%3A1&mode=design&t=jP2tIZR98deRfu0I-1
