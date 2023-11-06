@@ -1,17 +1,17 @@
-logins ar password recovery - regnars
-
 uzdevumu DB - easy sasa
-
-uzdevumu izvade - easy imants
-
-uzdevumu ievade - easy imants
-
-uzdevumu atzimensana - easy regnars
 
 uzdevumu delete - easy sasa
 
 darbu kalendars - sasa
 
-search - easy regnars
+uzdevumu izvade - easy imants
+
+uzdevumu ievade - easy imants
 
 kkas papildus - imants
+
+search - easy regnars
+
+uzdevumu atzimensana - easy regnars
+
+logins ar password recovery - regnars
