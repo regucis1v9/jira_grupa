@@ -1,17 +1,17 @@
-logins ar password recovery
+logins ar password recovery - regnars
 
-uzdevumu DB
+uzdevumu DB - easy sasa
 
-uzdevumu izvade
+uzdevumu izvade - easy imants
 
-uzdevumu ievade
+uzdevumu ievade - easy imants
 
-uzdevumu atzimensana 
+uzdevumu atzimensana - easy regnars
 
-uzdevumu delete
+uzdevumu delete - easy sasa
 
-darbu kalendars
+darbu kalendars - sasa
 
-search
+search - easy regnars
 
-kkas papildus
+kkas papildus - imants
