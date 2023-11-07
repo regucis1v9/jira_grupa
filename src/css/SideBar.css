@@ -1,0 +1,25 @@
+.SideBar{
+    width: 250px;
+    height: 100vh;
+    background-color: black;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: fixed;
+}
+
+.TopCont{
+    height: 42%;
+    background-color: aqua;
+
+}
+
+.MidCont{
+    height: 16%;
+    background-color: red;
+
+}
+
+.BotCont{
+    height: 42%;
+    background-color: green;
+}
