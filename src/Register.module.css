@@ -82,7 +82,12 @@ img{
 .text{
   margin-top:50px;
 }
-
+.error{
+  color: #bf0d0d;
+  font-size: 15px;
+  text-indent: 10px;
+  margin-top:5px;
+}
 @media only screen and (max-width: 768px) {
   .container2{
     display:none;

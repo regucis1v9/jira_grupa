@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import styles from './Register.module.css'; // Importing the CSS module
 
 function Register() {
-  const [name, setName] = useState('');
+
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nameError, setNameError] = useState(false);
+
+  const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setUsername(e.target.value);
   };
 
   const handleEmailChange = (e) => {
@@ -24,28 +26,64 @@ function Register() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    if (name === "") {
-      setNameError(true);
+    if (username === "") {
+      setUsernameError("Username is required");
     } else {
-      setNameError(false);
+      setUsername(false);
     }
 
     if (email === "") {
-      setEmailError(true);
+      setEmailError("Email is required");
     } else {
       setEmailError(false);
     }
 
     if (password === "") {
-      setPasswordError(true);
+      setPasswordError('Password is required');
     } else {
       setPasswordError(false);
     }
 
-    if (name !== "" && email !== "" && password !== "") {
-      console.log('Name:', name);
+    if (username !== "" && email !== "" && password !== "") {
+      console.log('Name:', username);
       console.log('Email:', email);
       console.log('Password:', password);
+
+      fetch('http://localhost/regnars/api/register.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+      })
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+          const responseData = data;
+          console.log(responseData);
+
+          if (responseData['message'] === 'Registration successful') {
+            setUsername('');
+            setEmail('');
+            setPassword('');
+          } else if (responseData['message'] === 'Username already exists') {
+            setUsernameError('Username is already taken');
+            setUsername(username);
+            setEmailError(false);
+            setPasswordError(false);
+          } else if (responseData['message'] === 'Email already exists') {
+            setEmailError('Email is already taken');
+            setUsernameError(false);
+            setPasswordError(false);
+          }
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
     }
   };
 
@@ -61,11 +99,11 @@ function Register() {
                 type="text"
                 className={styles.input}
                 placeholder="Enter your name"
-                value={name}
+                value={username}
                 onChange={handleNameChange}
                 id="nameInput"
               />
-              {nameError && <p className={styles.error}>Name is required</p>}
+              {usernameError && <p className={styles.error}>{usernameError}</p>}
             </label>
             <label htmlFor="emailInput">
               Email address
@@ -77,7 +115,7 @@ function Register() {
                 onChange={handleEmailChange}
                 id="emailInput"
               />
-              {emailError && <p className={styles.error}>Email is required</p>}
+              {emailError && <p className={styles.error}>{emailError}</p>}
             </label>
             <label htmlFor="passwordInput">
               Password
@@ -89,7 +127,7 @@ function Register() {
                 onChange={handlePasswordChange}
                 id="passwordInput"
               />
-              {passwordError && <p className={styles.error}>Password is required</p>}
+              {passwordError && <p className={styles.error}>{passwordError}</p>}
             </label>
             <div className={styles.lol}>
               <button type="submit" className={styles.submit}>Register</button>
