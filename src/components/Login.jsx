@@ -67,7 +67,7 @@ function Login() {
     <div className={styles.main}>
       <div className={styles.container} id="inputContainer">
         <form className={styles.form} onSubmit={handleFormSubmit}>
-          <h1>Welcome back!</h1>
+          <h1 className={styles.title}>Welcome back!</h1>
           <div className={styles.inputContainer}>
             <label htmlFor="usernameInput">
               Username

@@ -93,12 +93,12 @@ function Register() {
     <div className={styles.main}>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleFormSubmit}>
-          <h1 className={styles.h1}>Get Started Now</h1>
+          <h1 className={styles.title}>Get Started Now</h1>
           <div className={styles.inputContainer}>
             <label htmlFor="nameInput">
               Name
               <input
-                type="text"
+                type="text" 
                 className={styles.input}
                 placeholder="Enter your name"
                 value={username}
