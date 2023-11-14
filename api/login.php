@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 include "db.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
@@ -22,7 +24,7 @@ class Login extends DB{
             $username = htmlspecialchars(trim($decodedData['username']));
             $password = htmlspecialchars(trim($decodedData['password']));
 
-
+        
             if ($decodedData !== null && isset($decodedData['username'], $decodedData['password'])) {
                 $username = strip_tags($decodedData['username']);
                 $password = strip_tags($decodedData['password']);

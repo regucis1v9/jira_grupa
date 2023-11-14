@@ -12,7 +12,7 @@ require './src/Exception.php';
 require './src/PHPMailer.php';
 require './src/SMTP.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+if ($_SERVER['REQUEST_METHO'] === 'OPTIONS') {
     header('HTTP/1.1 200 OK');
     exit();
 }

@@ -49,10 +49,10 @@ function Login() {
             setUsernameError('User not found');
           } else if (data.message === 'Invalid password') {
             setPasswordError('Invalid password');
+          }else if (data.message === "Successfully logged in."){
+            window.location.href = "localhost:3000";
           }
         } else {
-          const errorData = await response.json();
-
           // Handle error responses
           console.error('Server response was not ok.');
         }
