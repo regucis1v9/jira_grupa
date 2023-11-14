@@ -63,14 +63,14 @@ function SideBar() {
   const SidebarStyle = {
     width: isSidebarCollapsed ? '0px' : '250px',
   };
-
   return (
     <div style={SidebarStyle} className={`SideBar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
       <div className="TopCont">
         <button
-          className={`CollapseArrow ${isSidebarCollapsed ? '>' : '<'}`}
+          className={`CollapseArrow ${isSidebarCollapsed ? 'collapsed' : ''}`}
           onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         >
+          {isSidebarCollapsed ? '>' : '<'}
         </button>
         <div className="WelcomeUserCont">
           <h4>Hello,</h4>
