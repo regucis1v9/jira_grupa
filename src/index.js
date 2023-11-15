@@ -6,6 +6,7 @@ import {
   Login,
   Register,
   PasswordReset,
+  Profile,
   } from './components';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -15,6 +16,7 @@ root.render(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/reset" element={<PasswordReset />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   </Router>
 );

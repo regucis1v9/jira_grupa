@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
+import Cookies from 'js-cookie';
+
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -50,7 +52,10 @@ function Login() {
           } else if (data.message === 'Invalid password') {
             setPasswordError('Invalid password');
           }else if (data.message === "Successfully logged in."){
-            window.location.href = "localhost:3000";
+            Cookies.set('token', data.token, { expires: 1 / 24 });
+            Cookies.set('username', data.username, { expires: 1 / 24 });
+            Cookies.set('email', data.email, { expires: 1 / 24 });
+            window.location.href = "http://localhost:3000/profile";
           }
         } else {
           // Handle error responses

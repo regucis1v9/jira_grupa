@@ -37,6 +37,7 @@ class Login extends DB{
                 if ($result->num_rows === 1) {
                     $row = $result->fetch_assoc();
                     $hashedPassword = $row['password'];
+                    $email = $row['email'];
     
                     // Verify the entered password against the hashed password
                     if (password_verify($password, $hashedPassword)) {
@@ -53,7 +54,8 @@ class Login extends DB{
                                         "message" => "Successfully logged in.",
                                         'status' => 200,
                                         'token' => $token,
-                                        'username' => $username
+                                        'username' => $username,
+                                        'email' => $email
                                     ]
                                 );
                             }else {

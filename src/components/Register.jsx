@@ -81,6 +81,8 @@ function Register() {
             setUsername(username);
             setUsernameError(false);
             setPasswordError(false);
+          }else if (data.message === "Successfully logged in."){
+            window.location.href = "http://localhost:3000/login";
           }
         })
         .catch(error => {
@@ -96,11 +98,11 @@ function Register() {
           <h1 className={styles.title}>Get Started Now</h1>
           <div className={styles.inputContainer}>
             <label htmlFor="nameInput">
-              Name
+              Username
               <input
                 type="text" 
                 className={styles.input}
-                placeholder="Enter your name"
+                placeholder="Enter your username"
                 value={username}
                 onChange={handleNameChange}
                 id="nameInput"

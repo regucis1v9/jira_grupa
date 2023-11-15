@@ -42,7 +42,8 @@ class Register extends DB {
                 $insertResult = $this->conn->query($insertQuery);
     
                 if ($insertResult === true) {
-                    echo json_encode(["message" => "Registration successful"]);
+                    echo json_encode([
+                        "message" => "Registration successful"]);
                 } else {
                     echo json_encode(["message" => "Error: " . $this->conn->error]);
                 }
