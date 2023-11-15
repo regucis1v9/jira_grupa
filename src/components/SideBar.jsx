@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import '../css/SideBar.css';
 
 function SideBar() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [isTasksOn, setIsTasksOn] = useState(true);
+  const [isTasksOn, setIsTasksOn] = useState(false);
   const [isCalendarOn, setIsCalendarOn] = useState(false);
   const [isAccountOn, setIsAccountOn] = useState(false);
   const [isSettingsOn, setIsSettingsOn] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const pathname = location.pathname.toLowerCase();
+    
+    setIsTasksOn(pathname === '/tasks');
+    setIsCalendarOn(pathname === '/calendar');
+    setIsAccountOn(pathname === '/account');
+    setIsSettingsOn(pathname === '/settings');
+  }, [location.pathname]);
+
+
 
   const handleTasksButtonClick = () => {
     if (!isTasksOn) {
@@ -14,33 +29,49 @@ function SideBar() {
       setIsCalendarOn(false);
       setIsAccountOn(false);
       setIsSettingsOn(false);
+  
+      setTimeout(() => {
+        window.location.href = "/tasks";
+      }, 300);
     }
   };
-
+  
   const handleCalendarButtonClick = () => {
     if (!isCalendarOn) {
       setIsCalendarOn(true);
       setIsTasksOn(false);
       setIsAccountOn(false);
       setIsSettingsOn(false);
+  
+      setTimeout(() => {
+        window.location.href = "/calendar";
+      }, 300);
     }
   };
-
+  
   const handleAccountButtonClick = () => {
     if (!isAccountOn) {
       setIsAccountOn(true);
       setIsTasksOn(false);
       setIsCalendarOn(false);
       setIsSettingsOn(false);
+  
+      setTimeout(() => {
+        window.location.href = "/account";
+      }, 300);
     }
   };
-
+  
   const handleSettingsButtonClick = () => {
     if (!isSettingsOn) {
       setIsSettingsOn(true);
       setIsTasksOn(false);
       setIsCalendarOn(false);
       setIsAccountOn(false);
+  
+      setTimeout(() => {
+        window.location.href = "/settings";
+      }, 300);
     }
   };
 
@@ -98,12 +129,12 @@ function SideBar() {
       <div className="MidCont">
         <div className="CircleWithPlusCont">
           <p>Create New Task</p>
-          <button className="MidContCircle">
+          <Link to="/NewTask" className="MidContCircle">
             <div className="CrossSign">
               <div className="VerticalLine"></div>
               <div className="HorizontalLine"></div>
             </div>
-          </button>
+          </Link>
         </div>
       </div>
       <div className="BotCont">

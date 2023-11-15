@@ -9,12 +9,8 @@
   transition: margin-left 0.3s ease;
 }
 
-.Tasks.collapsed {
-  margin-left: 0;
-}
-
-.Tasks.collapsed .TasksCont {
-  width: 100%; /* Full width when the sidebar is collapsed */
+.SideBar.collapsed + .Tasks {
+  margin-left: calc((100vw - 1500px) / 2);
 }
 
 .TasksCont {
