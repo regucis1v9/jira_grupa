@@ -1,21 +1,115 @@
 .Tasks {
   text-align: center;
   width: calc(100vw - 400px);
+  min-width: 500px;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-left: 350px;
-  transition: margin-left 0.3s ease;
+  transition: width 0.3s ease; /* Only transition width */
 }
 
 .SideBar.collapsed + .Tasks {
-  margin-left: calc((100vw - 1500px) / 2);
+  width: calc(100vw / 1.475);
+  margin-left: 275px;
 }
 
 .TasksCont {
   width: 100%;
-  height: 750px;
-  background-color: #D9D9D9;
+  max-width: 1200px;
+  min-height: 300px;
+  max-height: 70vh;
+  background-color: #d9d9d9;
   border-radius: 20px;
+  padding: 20px;
+  overflow: auto; /* Enable scrollbars when content overflows */
+  margin: 20px;
+  position: relative; /* Add relative positioning */
+}
+
+.TableWrapper {
+  overflow-x: auto; /* Enable horizontal scrollbar */
+  overflow-y: scroll; /* Force vertical scrollbar */
+  max-height: calc(70vh - 40px); /* Adjust height for scrollbar */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+}
+
+th {
+  /* Additional styling for table header */
+  padding: 8px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 2; /* Set z-index to ensure the header stays on top */
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button.Edit {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button.Delete {
+  background-color: #f44336;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* Mobile Styles */
+@media screen and (max-width: 768px) {
+  .Tasks {
+    width: 100vw;
+    justify-content: unset; /* Remove justify-content for mobile */
+    align-items: unset; /* Remove align-items for mobile */
+    margin-left: 0;
+  }
+
+  .TasksCont {
+    border-radius: 0;
+    margin: 0;
+    padding: 10px;
+  }
+
+  .SideBar.collapsed + .TasksCont {
+    margin-left: 350px; /* Adjust margin when Sidebar is collapsed for mobile */
+  }
 }

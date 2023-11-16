@@ -94,6 +94,7 @@ function SideBar() {
   const SidebarStyle = {
     width: isSidebarCollapsed ? '0px' : '250px',
   };
+  
   return (
     <div style={SidebarStyle} className={`SideBar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
       <div className="TopCont">
