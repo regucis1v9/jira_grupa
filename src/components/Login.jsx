@@ -49,9 +49,9 @@ function Login() {
           console.log(data);
 
           if (data.message === 'User not found') {
-            setUsernameError('User not found');
+            setUsernameError(data.message);
           } else if (data.message === 'Invalid password') {
-            setPasswordError('Invalid password');
+            setPasswordError(data.message);
           }else if (data.message === "Successfully logged in."){
             Cookies.set('token', data.token, { expires: 1 / 24 });
             Cookies.set('username', data.username, { expires: 1 / 24 });

@@ -14,6 +14,42 @@ function Tasks() {
     const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
+
+    if (!token) {
+      Cookies.set('username', "", { expires: new Date(0) });
+      Cookies.set('email', "", { expires: new Date(0) });
+      Cookies.set('id', "", { expires: new Date(0) });
+      Cookies.set('token', "", { expires: new Date(0) });
+      
+      const id = Cookies.get('id');
+  
+    // Check if token and id are present
+
+      // Fetch to the logout.php file with method POST
+      fetch('http://localhost/regnars/api/logout.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Logout response:', data);
+          // Redirect to the login page or perform other actions as needed
+          window.location.href = "/login";
+        })
+        .catch((error) => {
+          console.error('Error during logout:', error);
+        });
+      return;
+    }
+
     fetch(`http://localhost/regnars/api/api.php?fetchTasks&sort=${sortBy}&id=${id}`, {
       method: 'GET'
     })
@@ -38,6 +74,41 @@ function Tasks() {
 
 
 const deleteTask = (taskId) => {
+
+  if (!token) {
+    Cookies.set('username', "", { expires: new Date(0) });
+    Cookies.set('email', "", { expires: new Date(0) });
+    Cookies.set('id', "", { expires: new Date(0) });
+    Cookies.set('token', "", { expires: new Date(0) });
+    
+    const id = Cookies.get('id');
+
+  // Check if token and id are present
+
+    // Fetch to the logout.php file with method POST
+    fetch('http://localhost/regnars/api/logout.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Logout response:', data);
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error('Error during logout:', error);
+      });
+    return;
+  }
+
   // Perform delete action - fetch API call or other method to delete task by ID
   // For example, using fetch to perform a DELETE request
   fetch(`http://localhost/regnars/api/api.php?deleteTask=${taskId}`, {
@@ -62,8 +133,45 @@ const deleteTask = (taskId) => {
 
 
 const handleSaveChanges = async () => {
+
+  if (!token) {
+    Cookies.set('username', "", { expires: new Date(0) });
+    Cookies.set('email', "", { expires: new Date(0) });
+    Cookies.set('id', "", { expires: new Date(0) });
+    Cookies.set('token', "", { expires: new Date(0) });
+    
+    const id = Cookies.get('id');
+
+  // Check if token and id are present
+
+    // Fetch to the logout.php file with method POST
+    fetch('http://localhost/regnars/api/logout.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Logout response:', data);
+        // Redirect to the login page or perform other actions as needed
+        window.location.href = "/login";
+      })
+      .catch((error) => {
+        console.error('Error during logout:', error);
+      });
+    return;
+  }
+
   try {
     if (editTask) {
+      
       const response = await fetch(`http://localhost/regnars/api/api.php?updateTask=${editTask.id}`, {
         method: 'PUT',
         headers: {
@@ -139,6 +247,41 @@ const handleSidebarCollapseChange = (collapsed) => {
 };
 const handleSearch = async (e) => {
     e.preventDefault();
+
+    if (!token) {
+      Cookies.set('username', "", { expires: new Date(0) });
+      Cookies.set('email', "", { expires: new Date(0) });
+      Cookies.set('id', "", { expires: new Date(0) });
+      Cookies.set('token', "", { expires: new Date(0) });
+      
+      const id = Cookies.get('id');
+  
+    // Check if token and id are present
+  
+      // Fetch to the logout.php file with method POST
+      fetch('http://localhost/regnars/api/logout.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Logout response:', data);
+          // Redirect to the login page or perform other actions as needed
+          window.location.href = "/login";
+        })
+        .catch((error) => {
+          console.error('Error during logout:', error);
+        });
+      return;
+    }
 
     try {
         const response = await fetch('http://localhost/regnars/api/search.php', {

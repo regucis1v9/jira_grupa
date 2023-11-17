@@ -35,7 +35,6 @@ function SideBar({ onSidebarCollapseChange }) {
     const id = Cookies.get('id');
   
     // Check if token and id are present
-    if (id) {
       // Fetch to the logout.php file with method POST
       fetch('http://localhost/regnars/api/logout.php', {
         method: 'POST',
@@ -52,15 +51,15 @@ function SideBar({ onSidebarCollapseChange }) {
         })
         .then((data) => {
           console.log('Logout response:', data);
-          // Redirect to the login page or perform other actions as needed
+          Cookies.set('username', "", { expires: new Date(0) });
+          Cookies.set('email', "", { expires: new Date(0) });
+          Cookies.set('id', "", { expires: new Date(0) });
+          Cookies.set('token', "", { expires: new Date(0) });
           window.location.href = "/login";
         })
         .catch((error) => {
           console.error('Error during logout:', error);
         });
-    } else {
-      console.error('Token or ID missing for logout');
-    }
   };
   const handleTasksButtonClick = () => {
     if (!isTasksOn) {

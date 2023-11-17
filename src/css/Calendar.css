@@ -1,0 +1,130 @@
+.calendar-main {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.calendar-container {
+    display: flex;
+    max-width: 1200px;
+    width: 100;
+    margin-left:250px;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+.collapsed-calendar-container{
+    width:100%;
+    margin-left:0
+}
+   
+
+.calendar {
+    background-color: #ffffff;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+}
+
+.cal-header {
+    background-color: #035A3B;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+.week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.day-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    text-align: center;
+    font-size: 0.8em;
+    border: 1px solid #e0e0e0;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    overflow: hidden;
+    height: 60px;
+    transition: background-color 0.3s ease;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+}
+
+.today {
+    background-color: #035A3B;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.sidebar {
+    background-color: #035A3B;
+    color: #ffffff;
+    padding: 20px;
+    width: 300px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ... (Previous CSS) */
+
+.sidebar-task {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.task-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.task-description {
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.task-status {
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 700px) {
+    .calendar-container {
+      flex-direction: column;
+      margin-left:0px;
+    }
+    .sidebar{
+        width:100%;
+        padding: 0px;
+        padding-top:20px;
+        padding-bottom:20px;
+        border-radius: 0px;
+    }
+    .calendar{
+        border-radius: 0px;
+    }
+  }

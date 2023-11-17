@@ -25,9 +25,9 @@ class Logout extends DB {
             $sql = "UPDATE `users` SET token = '' WHERE id = '$id'";
             $result = $this->conn->query($sql);
             if($result){
-                echo json_encode('logged out');
+                echo json_encode(["message" => "logged out"]);
             }else{
-                echo json_encode('token doesnt exist');
+                echo json_encode(["message" => "Unable to log out"]);
             }
         } else {
             echo json_encode(["message" => "Invalid data received"]);

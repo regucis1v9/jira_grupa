@@ -4,13 +4,14 @@ import Cookies from 'js-cookie';
 import SideBar from './SideBar';
 
 function NewTask() {
+  const id = Cookies.get('id');
   const token = Cookies.get('token');
   const username = Cookies.get('username');
   const [task, setTask] = useState({
     title: '',
     description: '',
     due_date: '',
-    id: Cookies.get('id'),
+    id:id,
   });
 
   const [error, setError] = useState(null); // New state for error handling
@@ -22,6 +23,41 @@ function NewTask() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!token) {
+      Cookies.set('username', "", { expires: new Date(0) });
+      Cookies.set('email', "", { expires: new Date(0) });
+      Cookies.set('id', "", { expires: new Date(0) });
+      Cookies.set('token', "", { expires: new Date(0) });
+      
+      const id = Cookies.get('id');
+  
+    // Check if token and id are present
+  
+      // Fetch to the logout.php file with method POST
+      fetch('http://localhost/regnars/api/logout.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Logout response:', data);
+          // Redirect to the login page or perform other actions as needed
+          window.location.href = "/login";
+        })
+        .catch((error) => {
+          console.error('Error during logout:', error);
+        });
+      return;
+    }
 
     fetch('http://localhost/regnars/api/api.php', {
       method: 'POST',

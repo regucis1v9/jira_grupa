@@ -34,7 +34,33 @@ function Settings() {
       Cookies.set('email', "", { expires: new Date(0) });
       Cookies.set('id', "", { expires: new Date(0) });
       Cookies.set('token', "", { expires: new Date(0) });
-      window.location.href = "/login";
+      
+      const id = Cookies.get('id');
+  
+    // Check if token and id are present
+
+      // Fetch to the logout.php file with method POST
+      fetch('http://localhost/regnars/api/logout.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log('Logout response:', data);
+          // Redirect to the login page or perform other actions as needed
+          window.location.href = "/login";
+        })
+        .catch((error) => {
+          console.error('Error during logout:', error);
+        });
       return;
     }
     const trimmedUsername = editedUsername.trim();
