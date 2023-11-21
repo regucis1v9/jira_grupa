@@ -8,4 +8,5 @@ export { default as Settings } from "./Settings";
 export { default as NewTask } from "./NewTask";
 export { default as Tasks } from "./Tasks";
 export { default as Calendar } from "./Calendar";
-
+export { default as UserSearch } from "./UserSearch"
+export { default as ViewUser } from "./ViewUser";

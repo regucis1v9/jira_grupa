@@ -1,0 +1,69 @@
+*{
+    padding:0;
+    margin:0;
+  }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  .main{
+    width:100vw;
+    height:100vh;
+    background-color: #FFFFFF;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+  }
+  .resultContainer{
+    height:500px;
+    width: 300px;
+    border-radius: 10px;
+    margin-left:300px;
+    transition: margin-left 0.3s ease; /* Only transition width */
+    box-shadow: #00000054 0px 5px 15px;
+  }
+  .resultRow{
+    width:100%;
+    height:50px;
+    font-size:20px;
+    color:black;
+    display: flex;
+    text-decoration: none;
+    padding-left:10px;
+  }
+  .collapsed{
+    margin-left:0px;
+  }
+  .resultID{
+    margin-right:10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  .resultUser{
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    
+  }
+  .errorMsg{
+    width:100%;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+  }
+
+  

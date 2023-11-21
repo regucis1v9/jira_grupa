@@ -12,6 +12,8 @@ import {
   NewTask,
   Tasks,
   Calendar,
+  UserSearch,
+  ViewUser,
   } from './components';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -27,6 +29,8 @@ root.render(
       <Route path="/newtask" element={<NewTask />} />
       <Route path="/tasks" element={<Tasks />} />
       <Route path="/calendar" element={<Calendar />} />
+      <Route path="/userSearch" element={<UserSearch />} />
+      <Route path="/viewUser/:id" element={<ViewUser />} />
     </Routes>
   </Router>
 );

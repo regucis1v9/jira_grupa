@@ -25,53 +25,40 @@ function Register() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
-    if (/<[^>]*>/g.test(username)) {
-      setUsernameError('Username cannot contain HTML tags');
-      return;
-    } else {
-      setUsernameError(false);
-    }
-  
-    // Check for HTML tags in password
+    
     if (/<[^>]*>/g.test(password)) {
       setPasswordError('Password cannot contain HTML tags');
-      return;
     } else {
       setPasswordError(false);
     }
-
+        if (/<[^>]*>/g.test(username)) {
+      setUsernameError('Username cannot contain HTML tags');
+    } else {
+      setUsernameError(false);
+    }
+    if (/<[^>]*>/g.test(email)) {
+      setEmailError('Email cannot contain HTML tags');
+      setUsername(username);
+    } else {
+      setEmailError(false);
+    }
     if (username === "") {
       setUsernameError("Username is required");
     } else {
-      setUsername(false);
+      setUsername('');
     }
 
     if (email === "") {
       setEmailError("Email is required");
+      setUsername(username);
     } else {
-      setEmailError(false);
+      setEmailError('');
     }
-
     if (password === "") {
       setPasswordError('Password is required');
-    } else {
-      setPasswordError(false);
-    }
-    if (/<[^>]*>/g.test(username)) {
-      setUsernameError('Username cannot contain HTML tags');
-      return;
-    } else {
-      setUsernameError(false);
-    }
-  
-    // Check for HTML tags in password
-    if (/<[^>]*>/g.test(email)) {
-      setEmailError('Email cannot contain HTML tags');
       setUsername(username);
-      return;
     } else {
-      setEmailError(false);
+      setPasswordError('');;
     }
     if (username !== "" && email !== "" && password !== "") {
       console.log('username:', username);

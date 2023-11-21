@@ -20,12 +20,11 @@ function SideBar({ onSidebarCollapseChange }) {
     setIsTasksOn(pathname === '/tasks');
     setIsCalendarOn(pathname === '/calendar');
     setIsAccountOn(pathname === '/account');
-    setIsSettingsOn(pathname === '/settings');
+    setIsSettingsOn(pathname === '/usersearch');
   }, [location.pathname]);
 
   useEffect(() => {
     // Log the current state of isSidebarCollapsed
-    console.log("Sidebar State:", isSidebarCollapsed);
     // Pass the state up to the parent component
     onSidebarCollapseChange(isSidebarCollapsed);
   }, [isSidebarCollapsed]);
@@ -108,7 +107,7 @@ function SideBar({ onSidebarCollapseChange }) {
       setIsAccountOn(false);
   
       setTimeout(() => {
-        window.location.href = "/settings";
+        window.location.href = "/userSearch";
       }, 300);
     }
   };
@@ -190,7 +189,7 @@ function SideBar({ onSidebarCollapseChange }) {
           onClick={handleSettingsButtonClick}
         >
           <div className={`Circle ${isSettingsOn ? 'SlideRight' : 'SlideLeft'}`}></div>
-          <h6 className="CustomClassName">Settings</h6>
+          <h6 className="CustomClassName">Search Users</h6>
         </button>
         <button className="LogoutButton" onClick={handleLogout}>Logout</button>
       </div>
