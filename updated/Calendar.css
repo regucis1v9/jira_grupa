@@ -1,0 +1,162 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items:center;
+}
+
+.calendar-container {
+    display: flex;
+    min-width: 1200px;
+    width: 100%;
+    max-height:670px;
+}
+
+.calendar {
+    background-color: #ffffff;
+    border-radius: 10px 0 0 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+}
+
+.cal-header {
+    background-color: #035A3B;
+    color: #ffffff;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.5em;
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.week {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+}
+
+.day-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    text-align: center;
+    font-size: 0.8em;
+    border: 1px solid #e0e0e0;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    overflow: hidden;
+    height: 80px; /* Set a fixed height for each day */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.day:hover {
+    background-color: #e0e0e0;
+}
+
+.today {
+    background-color: #035A3B;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.sidebar {
+    background-color: #035A3B;
+    color: #ffffff;
+    padding: 20px;
+    width: 300px;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ... (Previous CSS) */
+
+.sidebar-task {
+    margin-bottom: 20px;
+    padding:10px;
+    max-width:200px;
+    width:100%;
+    border:solid 1px;
+    border-radius:10px;
+}
+.sidebar-task:hover{
+    background-color: #08704c;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius:10px;
+}
+
+.task-title-style {
+    font-size:24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.task-desc-style {
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.task-status-style {
+    font-size: 0.8em;
+    color:black;
+}
+.next-button{
+    background:none;
+    border-radius:10px;
+     border:none;
+    color:white;
+    padding:10px;
+    font-size:24px;
+}
+.next-button:hover{
+    background-color: #08704c;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.prev-button:hover{
+    background-color: #08704c;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.prev-button{
+    background:none;
+    border-radius:10px;
+    border:none;
+    color:white;
+    padding:10px;
+    font-size:24px;
+}
+.task-title-style{
+    font:bold;
+}
+.this-month-box{
+    max-width: 600px;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.button-box{
+    max-width:100px;
+    width:100%;
+}
+
+
