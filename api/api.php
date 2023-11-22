@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $requestData = json_decode(file_get_contents('php://input'), true);
 
     // Validate if the required fields are empty
-    if (empty($requestData['title']) || empty($requestData['description']) || empty($requestData['due_date'])) {
+    if (empty($requestData['title']) || empty($requestData['description']) || empty($requestData['due_date']) || empty($requestData['accessibility'])) {
         echo json_encode(array("error" => "Please fill in all required fields"));
         exit; // Stop execution if any field is empty
     }
@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $requestData['title'];
     $description = $requestData['description'];
     $due_date = $requestData['due_date'];
+    $accessibility = $requestData['accessibility'];
     $user_id = $requestData['id']; // Assuming user_id is present in $requestData
     $status = $requestData['status'] ?? 'Active'; // Set status to 'Active' by default
     
@@ -62,6 +63,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             break;
         case 'status_active':
             $orderBy = 'status = "Active" DESC, status = "Finished" DESC, status = "On Hold" DESC';
+            break;
+        case 'accessibility_public':
+            $orderBy = 'accessibility = "Public" DESC, accessibility = "Private" DESC, due_date ASC';
+            break;
+        case 'accessibility_private':
+            $orderBy = 'accessibility = "Private" DESC, accessibility = "Public" DESC, due_date ASC';
             break;
         default:
             $orderBy = 'due_date ASC'; // Default sorting by due date
@@ -118,10 +125,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $requestData['description'];
     $due_date = $requestData['due_date'];
     $status = $requestData['status'] ?? 'Active'; // Set status to 'Active' by default
+    $accessibility = $requestData['accessibility'] ?? 'Public'; // Set accessibility to 'Public' by default
 
     // Update task data in the database
-    $stmt = $conn->prepare("UPDATE tasks SET title=?, description=?, due_date=?, status=? WHERE id=?");
-    $stmt->bind_param("ssssi", $title, $description, $due_date, $status, $taskId);
+    $stmt = $conn->prepare("UPDATE tasks SET title=?, description=?, due_date=?, status=?, accessibility=? WHERE id=?");
+    $stmt->bind_param("sssssi", $title, $description, $due_date, $status, $accessibility, $taskId);
 
     if ($stmt->execute()) {
         echo json_encode(array("message" => "Task updated successfully"));
