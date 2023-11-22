@@ -9,7 +9,7 @@ function Tasks() {
     const username = Cookies.get('username');
     const id = Cookies.get('id');
     const [tasks, setTasks] = useState([]);
-    const [editTask, setEditTask] = useState(null);
+    const [editTask, setEditTask] = useState({ accessibility: '', /* other properties */ });
     const [sortBy, setSortBy] = useState('due_date');
     const [searchValue, setSearchValue] = useState('');
 
@@ -226,16 +226,34 @@ const handleSortChange = (criteria) => {
 };
 
 const handleStatusChange = () => {
-  const statusOptions = ['Active', 'On Hold', 'Finished'];
-  const currentStatusIndex = statusOptions.indexOf(editTask.status);
-  const nextStatusIndex = (currentStatusIndex + 1) % statusOptions.length; // Cycle through the options
+  if (editTask) {
+    const statusOptions = ['Active', 'On Hold', 'Finished'];
+    const currentStatusIndex = statusOptions.indexOf(editTask.status);
+    const nextStatusIndex = (currentStatusIndex + 1) % statusOptions.length; // Cycle through the options
 
-  const updatedEditTask = {
-    ...editTask,
-    status: statusOptions[nextStatusIndex]
-  };
-  setEditTask(updatedEditTask);
+    const updatedEditTask = {
+      ...editTask,
+      status: statusOptions[nextStatusIndex]
+    };
+    setEditTask(updatedEditTask);
+  }
 };
+
+const handleAccessibilityChange = () => {
+  if (editTask) {
+    const accessibilityOptions = ['Public', 'Private'];
+    const currentAccessibilityIndex = accessibilityOptions.indexOf(editTask.accessibility);
+    const nextAccessibilityIndex = (currentAccessibilityIndex + 1) % accessibilityOptions.length;
+
+    const updatedEditTask = {
+      ...editTask,
+      accessibility: accessibilityOptions[nextAccessibilityIndex]
+    };
+    setEditTask(updatedEditTask);
+  }
+};
+
+
 const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
 if (!token || !username) {
@@ -338,7 +356,9 @@ return (
         <option value="due_date_desc">Due Date (Oldest to Newest)</option>
         <option value="status_finished">Sort by Finished First</option>
         <option value="status_on_hold">Sort by On Hold First</option>
-        <option value="status_active">Sort by Active First</option> {/* New option */}
+        <option value="status_active">Sort by Active First</option>
+        <option value="accessibility_public">Sort by Public First</option>
+        <option value="accessibility_private">Sort by Private First</option>
       </select>
     </div>
     <div className={`TasksCont ${isSidebarCollapsed ? 'collapsed' : ''}`} style={{ display: editTask ? 'none' : 'block' }}>
@@ -350,6 +370,7 @@ return (
               <th>Title</th>
               <th>Description</th>
               <th>Due Date</th>
+              <th>Accessibility</th>
               <th>Status</th>
               <th>Operations</th>
             </tr>
@@ -361,6 +382,9 @@ return (
                 <td>{task.title}</td>
                 <td>{task.description}</td>
                 <td>{task.due_date}</td>
+                <td className={task.accessibility === 'Public' ? 'Public' : 'Private'}>
+                  {task.accessibility}
+                </td>
                 <td className={task.status === 'Active' ? 'Active' : task.status === 'On Hold' ? 'OnHold' : 'Finished'}>
                   {task.status}
                 </td>
@@ -405,6 +429,17 @@ return (
           value={editTask.due_date}
           onChange={(e) => setEditTask({ ...editTask, due_date: e.target.value })}
         />
+
+        <label>Accessibility:</label>
+        <div className="accessibility-options">
+          <button
+            className={editTask.accessibility === 'Public' ? 'Public' : 'Private'}
+            onClick={handleAccessibilityChange}
+          >
+            {editTask.accessibility === 'Public' ? 'Public' : 'Private'}
+          </button>
+        </div>
+        
         <label>Status:</label>
         <button className={editTask.status === 'Active' ? 'Active' : editTask.status === 'On Hold' ? 'OnHold' : 'Finished'} onClick={handleStatusChange}>{editTask.status}</button>
         <div>
