@@ -4,20 +4,22 @@ import SideBar from './SideBar';
 import Cookies from 'js-cookie';
 
 const Calendar = () => {
+    const currentDate = new Date();
+    const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
+    const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
 
-    const token = Cookies.get('token');
-    const username = Cookies.get('username');
-    const email = Cookies.get('email');
-    const id = Cookies.get('id');
-
-    const daysInMonth = 30;
-    const startDay = 3;
-    const month = 'November';
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const startDay = new Date(currentYear, currentMonth, 1).getDay();
 
     const [tasks, setTasks] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
 
-    // Fetch tasks from the PHP script
+    const token = Cookies.get('token');
+    const id = Cookies.get('id');
+
+    console.log(id);
+
+    //fetcher
     const fetchTasks = async () => {
 
         if (!token) {
@@ -29,7 +31,7 @@ const Calendar = () => {
             const id = Cookies.get('id');
         
           // Check if token and id are present
-      
+        
             // Fetch to the logout.php file with method POST
             fetch('http://localhost/regnars/api/logout.php', {
               method: 'POST',
@@ -54,8 +56,9 @@ const Calendar = () => {
               });
             return;
           }
+
         try {
-            const response = await fetch('http://localhost/regnars/api/GetAllTasks.php');
+            const response = await fetch(`http://localhost/regnars/api/GetAllTasks.php?id=${id}`);
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -69,10 +72,10 @@ const Calendar = () => {
 
     useEffect(() => {
         fetchTasks();
-    }, []);
+    }, [currentYear, currentMonth]);
 
     const handleDayClick = (day) => {
-        const dayValue = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const dayValue = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const tasksForDay = tasks.filter((task) => task.due_date === dayValue);
 
         setSelectedDate({
@@ -88,8 +91,8 @@ const Calendar = () => {
         }
 
         for (let i = 1; i <= daysInMonth; i++) {
-            const isToday = i === new Date().getDate();
-            const dayValue = `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+            const isToday = currentYear === currentDate.getFullYear() && currentMonth === currentDate.getMonth() && i === currentDate.getDate();
+            const dayValue = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
             const tasksForDay = tasks.filter((task) => task.due_date === dayValue);
 
             days.push(
@@ -115,24 +118,40 @@ const Calendar = () => {
 
         return days;
     };
+    //pariet uz ieprieksejo menesi
+    const handlePrevMonth = () => {
+        setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
+        setCurrentYear((prevYear) => (currentMonth === 0 ? prevYear - 1 : prevYear));
+    };
+    //pariet uz nakoso menesi
+    const handleNextMonth = () => {
+        setCurrentMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1));
+        setCurrentYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear));
+    };
+
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
-    if (!token || !username ) {
-      window.location.href = "/login";
-    }
-  
     const handleSidebarCollapseChange = (collapsed) => {
-      // Handle the collapsed state change in the Profile component
       setIsSidebarCollapsed(collapsed);
     };
 
     return (
         <>
         <SideBar onSidebarCollapseChange={handleSidebarCollapseChange} />
-    <div className="calendar-main">
-        <div className= {`calendar-container ${isSidebarCollapsed ? 'collapsed-calendar-container' : ''}`}>
+        <div className="calendar-main">
+        <div className={`calendar-container ${isSidebarCollapsed ? 'collapsed' : ''}`}>
             <div className="calendar">
-                <div className="cal-header">{`${month} 2023`}</div>
+                <div className="cal-header">
+                    <div className= "button-box">
+                    <button onClick={handlePrevMonth} className = "prev-button">&lt;</button>
+                    </div>
+                    <div className = "this-month-box">
+                    {`${new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(currentYear, currentMonth))} ${currentYear}`}
+                    </div>
+                    <div className = "button-box">
+                    <button onClick={handleNextMonth} className = "next-button">&gt;</button>
+                    </div>
+                </div>
                 <div className="week">
                     <div className="day-name">Sun</div>
                     <div className="day-name">Mon</div>
@@ -152,9 +171,9 @@ const Calendar = () => {
                         {selectedDate.tasks.length > 0 ? (
                             selectedDate.tasks.map((task, index) => (
                                 <div key={index} className="sidebar-task">
-                                    <div>{task.title}</div>
-                                    <div>{task.description}</div>
-                                    <div>Status: {task.status}</div>
+                                    <div className = "task-title-style"> {task.title}</div>
+                                    <div className = "task-desc-style">{task.description}</div>
+                                    <div className = "task-status-style">Status: {task.status}</div>
                                 </div>
                             ))
                         ) : (
@@ -166,8 +185,9 @@ const Calendar = () => {
                 )}
             </div>
         </div>
-    </div>
-    </>
+        </div>
+        
+        </>
     );
 };
 
