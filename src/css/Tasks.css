@@ -194,6 +194,17 @@ button.Cancel{
   background-color: green;
   color: white;
 }
+
+.Private {
+  background-color: red;
+  color: white;
+}
+
+.Public {
+  background-color: green;
+  color: white;
+}
+
 .collapsed {
   margin-left: 0;
 }
