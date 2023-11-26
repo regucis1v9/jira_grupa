@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Register.module.css'; // Importing the CSS module
+import styles from '../css/Register.module.css'; // Importing the CSS module
 
 function Register() {
 
@@ -10,6 +10,7 @@ function Register() {
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleNameChange = (e) => {
     setUsername(e.target.value);
@@ -25,27 +26,43 @@ function Register() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+    
+    if (/<[^>]*>/g.test(password)) {
+      setPasswordError('Password cannot contain HTML tags');
+    } else {
+      setPasswordError(false);
+    }
+        if (/<[^>]*>/g.test(username)) {
+      setUsernameError('Username cannot contain HTML tags');
+    } else {
+      setUsernameError(false);
+    }
+    if (/<[^>]*>/g.test(email)) {
+      setEmailError('Email cannot contain HTML tags');
+      setUsername(username);
+    } else {
+      setEmailError(false);
+    }
     if (username === "") {
       setUsernameError("Username is required");
     } else {
-      setUsername(false);
+      setUsername('');
     }
 
     if (email === "") {
       setEmailError("Email is required");
+      setUsername(username);
     } else {
-      setEmailError(false);
+      setEmailError('');
     }
-
     if (password === "") {
       setPasswordError('Password is required');
+      setUsername(username);
     } else {
-      setPasswordError(false);
+      setPasswordError('');;
     }
-
     if (username !== "" && email !== "" && password !== "") {
-      console.log('Name:', username);
+      console.log('username:', username);
       console.log('Email:', email);
       console.log('Password:', password);
 
@@ -67,10 +84,10 @@ function Register() {
           console.log(responseData);
 
           if (responseData['message'] === 'Registration successful') {
+            setRegistrationSuccess(true);
             setUsername('');
             setEmail('');
-            setPassword('');
-            
+            setPassword('');           
           } else if (responseData['message'] === 'Username already exists') {
             setUsernameError('Username is already taken');
             setUsername(username);
@@ -78,6 +95,11 @@ function Register() {
             setPasswordError(false);
           } else if (responseData['message'] === 'Email already exists') {
             setEmailError('Email is already taken');
+            setUsername(username);
+            setUsernameError(false);
+            setPasswordError(false);
+          }else if(responseData['message'] === 'Invalid email address'){
+            setEmailError('Invalid email address');
             setUsername(username);
             setUsernameError(false);
             setPasswordError(false);
@@ -89,10 +111,18 @@ function Register() {
           console.error('There was a problem with the fetch operation:', error);
         });
     }
-  };
 
+  };
+  const closeAlert = () =>{
+    setRegistrationSuccess(false);
+  };
   return (
     <div className={styles.main}>
+      <div className={`${styles['loading-overlay']} ${registrationSuccess ? styles.flex : ''}`}>
+        <div className={styles.alert}>You've registered Successfully</div>
+        <button className={styles.alertButton} onClick={closeAlert}>Close message</button>
+      </div>
+      <div className={styles.mainBackground}></div>
       <div className={styles.container}>
         <form className={styles.form} onSubmit={handleFormSubmit}>
           <h1 className={styles.title}>Get Started Now</h1>
@@ -137,7 +167,7 @@ function Register() {
               <button type="submit" className={styles.submit}>Register</button>
             </div>
           </div>
-          <div className={styles.text}>Have an account? <a href="/login">Log in</a></div>
+          <div className={styles.white}>Have an account? <a href="/login" className={styles.aTag}>Log in</a></div>
         </form>
       </div>
       <div className={styles.container2}>

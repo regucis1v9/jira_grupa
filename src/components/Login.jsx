@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './Register.module.css';
+import React, { useState, useEffect, useRef } from 'react';
+import styles from '../css/Register.module.css';
 import Cookies from 'js-cookie';
 
 
@@ -8,6 +8,26 @@ function Login() {
   const [password, setPassword] = useState('');
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
+
+  const glowRef = useRef(null);
+
+  useEffect(() => {
+    const container = document.getElementById('main');
+    container.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      container.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  const handleMouseMove = (e) => {
+    const glow = glowRef.current;
+    const x = e.clientX;
+    const y = e.clientY;
+
+    glow.style.left = `${x}px`;
+    glow.style.top = `${y}px`;
+  };
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -19,6 +39,7 @@ function Login() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
 
     if (username === '') {
       setUsernameError('Username is required');
@@ -48,14 +69,15 @@ function Login() {
           console.log(data);
 
           if (data.message === 'User not found') {
-            setUsernameError('User not found');
+            setUsernameError(data.message);
           } else if (data.message === 'Invalid password') {
-            setPasswordError('Invalid password');
+            setPasswordError(data.message);
           }else if (data.message === "Successfully logged in."){
             Cookies.set('token', data.token, { expires: 1 / 24 });
             Cookies.set('username', data.username, { expires: 1 / 24 });
             Cookies.set('email', data.email, { expires: 1 / 24 });
-            window.location.href = "http://localhost:3000/profile";
+            Cookies.set('id', data.id, { expires: 1 / 24 });
+            window.location.href = "/account";
           }
         } else {
           // Handle error responses
@@ -69,7 +91,9 @@ function Login() {
   };
 
   return (
-    <div className={styles.main}>
+    <div className={styles.main} id="main">
+      <div className={styles.mainBackground}></div>
+      <div className={styles.glow} ref={glowRef}></div>
       <div className={styles.container} id="inputContainer">
         <form className={styles.form} onSubmit={handleFormSubmit}>
           <h1 className={styles.title}>Welcome back!</h1>
@@ -105,12 +129,15 @@ function Login() {
             </div>
           </div>
           <div className={styles.text}>
-            Don't have an account? <a href="/register">Sign up here</a>
+
+            <div className={styles.white}>
+              Don't have an account? <a href="/register" className={styles.aTag}>Sign up here</a>              
+            </div>
+            <div className={styles.white}>
+              Forgot your password? <a href="/reset" className={styles.aTag}>Get a new one here</a>              
+            </div>
           </div>
         </form>
-      </div>
-      <div className={styles.container2} id="imgContainer">
-        <img src="https://images.pexels.com/photos/1687341/pexels-photo-1687341.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
       </div>
     </div>
   );

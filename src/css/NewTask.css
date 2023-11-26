@@ -1,0 +1,72 @@
+/* Updated class names */
+.NewTask {
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: margin-left 0.3s ease;
+  background-image: linear-gradient(to right, #035A3B  , #023121);
+}
+.black{
+  color:black;
+}
+
+.NewTaskCont {
+  width: auto;
+  background-color: #D9D9D9;
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.collapsed {
+  margin-left: 0;
+}
+
+.formContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formLabel {
+  margin-bottom: 15px;
+  font-size: 18px; /* Increase font size for labels */
+}
+
+.formInput {
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 90%; /* Increase input width */
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px; /* Increase font size for inputs */
+}
+
+.SubmitButton {
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #035a3b;
+  color: white;
+  cursor: pointer;
+  font-size: 18px; /* Increase font size for the button */
+}
+.newTaskError{
+  color: #bf0d0d;
+  font-size: 20px;
+  margin-bottom:20px;
+  font-weight: bold;
+}
+@media only screen and (max-width: 535px) {
+  .NewTaskCont {
+    margin-left:0;
+  }
+}

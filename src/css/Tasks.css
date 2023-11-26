@@ -1,0 +1,217 @@
+.Tasks {
+  text-align: center;
+  width:100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: width 0.3s ease; /* Only transition width */
+  overflow-x: hidden;
+  background-image: linear-gradient(to right, #035A3B  , #023121);
+}
+
+
+.TasksCont {
+  width: 60%;
+  max-width: 1200px;
+  min-height: 300px;
+  max-height: 70vh;
+  background-color: #d9d9d9;
+  border-radius: 20px;
+  padding: 20px;
+  overflow: auto; /* Enable scrollbars when content overflows */
+  position: relative; /* Add relative positioning */
+  margin-left:300px;
+  transition: margin-left 0.3s ease;
+}
+.SortOptions{
+  margin-left:300px;
+  transition: margin-left 0.3s ease;
+}
+.searchBarContainer{
+width:300px;
+height:50px;
+margin-left: 300px;
+display:flex;
+transition: margin-left 0.3s ease;
+margin-bottom: 20px ;
+}
+.searchBar{
+width:250px;
+height:48px;
+border-right: none;
+font-size:30px;
+border-bottom-left-radius: 10px;
+border-top-left-radius: 10px;
+border:#333 1px solid ;
+text-indent:10px;
+}
+.searchButton{
+  width:50px;
+  height:100%;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  border:none;
+  background-color: #035A3B;
+  cursor: pointer;
+}
+.TableWrapper {
+  overflow-x: auto; /* Enable horizontal scrollbar */
+  overflow-y: scroll; /* Force vertical scrollbar */
+  max-height: calc(70vh - 40px); /* Adjust height for scrollbar */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  white-space: nowrap;       /* Prevent text from wrapping */
+  overflow: hidden;          /* Hide the overflow text */
+  text-overflow: ellipsis;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f2f2f2;
+}
+
+th {
+  /* Additional styling for table header */
+  padding: 8px;
+  text-align: left;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 2; /* Set z-index to ensure the header stays on top */
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f2f2f2;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button.Edit {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button.Delete {
+  background-color: #f44336;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+
+/* Mobile Styles */
+
+
+.EditModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f0f0f0; /* Darker color */
+  border: 1px solid #999; /* Darker border */
+  padding: 30px; /* Increased padding */
+  z-index: 9999;
+  width: 70%; /* Adjust the width as needed */
+  max-width: 500px; /* Maximum width for responsiveness */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  margin-left:150px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Rest of the styles remain unchanged */
+.EditModal h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.EditModal label {
+  display: block;
+  margin-bottom: 5px;
+  color:black;
+}
+
+.EditModal input[type='text'],
+.EditModal textarea,
+.EditModal input[type='date'],
+.EditModal button {
+  width: 95%;
+  padding: 10px; /* Adjusted padding */
+  margin-bottom: 15px; /* Increased margin */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button.SaveChanges {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+button.Cancel{
+  background-color: #af4c4c;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+/* Define styles for each status */
+.Active {
+  background-color: orange;
+  color: white;
+}
+
+.OnHold {
+  background-color: red;
+  color: white;
+}
+
+.Finished {
+  background-color: green;
+  color: white;
+}
+
+.Private {
+  background-color: red;
+  color: white;
+}
+
+.Public {
+  background-color: green;
+  color: white;
+}
+
+.collapsed {
+  margin-left: 0;
+}
+@media only screen and (max-width: 920px) {
+  .EditModal {
+    margin-left:0;
+  }
+}

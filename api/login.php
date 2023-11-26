@@ -1,7 +1,5 @@
 <?php
 
-use LDAP\Result;
-
 include "db.php";
 
 header("Access-Control-Allow-Origin: http://localhost:3000");
@@ -38,6 +36,7 @@ class Login extends DB{
                     $row = $result->fetch_assoc();
                     $hashedPassword = $row['password'];
                     $email = $row['email'];
+                    $id = $row['id'];
     
                     // Verify the entered password against the hashed password
                     if (password_verify($password, $hashedPassword)) {
@@ -53,9 +52,10 @@ class Login extends DB{
                                        [
                                         "message" => "Successfully logged in.",
                                         'status' => 200,
-                                        'token' => $token,
+                                        'id' => $id,
                                         'username' => $username,
-                                        'email' => $email
+                                        'email' => $email,
+                                        'token' => $token,
                                     ]
                                 );
                             }else {

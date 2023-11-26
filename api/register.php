@@ -16,23 +16,29 @@ class Register extends DB {
 
     public function registerUser() {
         $decodedData = json_decode($this->rawData, true);
-    
+
         if ($decodedData !== null && isset($decodedData['username'], $decodedData['password'], $decodedData['email'])) {
             $username = strip_tags($decodedData['username']);
             $password = strip_tags($decodedData['password']);
             $email = strip_tags($decodedData['email']);
-    
+
+            // Validate the email address
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo json_encode(["message" => "Invalid email address"]);
+                return;
+            }
+
             // Hash the password using a strong hashing algorithm (e.g., bcrypt)
             $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    
+
             // Check if the username already exists
             $checkUsernameQuery = "SELECT * FROM `users` WHERE username = '$username'";
             $checkUsernameResult = $this->conn->query($checkUsernameQuery);
-    
+
             // Check if the email already exists
             $checkEmailQuery = "SELECT * FROM `users` WHERE email = '$email'";
             $checkEmailResult = $this->conn->query($checkEmailQuery);
-    
+
             if ($checkUsernameResult->num_rows > 0) {
                 echo json_encode(["message" => "Username already exists"]);
             } else if ($checkEmailResult->num_rows > 0) {
@@ -40,7 +46,7 @@ class Register extends DB {
             } else {
                 $insertQuery = "INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$username', '$email', '$hashedPassword')";
                 $insertResult = $this->conn->query($insertQuery);
-    
+
                 if ($insertResult === true) {
                     echo json_encode([
                         "message" => "Registration successful"]);
@@ -53,7 +59,8 @@ class Register extends DB {
         }
     }
 }
-// Create an instance of the LoginHandler class
+
+// Create an instance of the Register class
 $Register = new Register();
 
 // Process the raw POST data

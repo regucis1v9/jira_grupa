@@ -11,7 +11,7 @@ class DB {
         $this->servername = "localhost";
         $this->username = "root";
         $this->password = "";
-        $this->dbname = "jira_grupa";
+        $this->dbname = "pupsiks";
 
         $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 

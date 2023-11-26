@@ -1,0 +1,153 @@
+*{
+    margin:0;
+    padding:0;
+}
+
+@keyframes subtleMove {
+    0% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(10px, 10px);
+    }
+    50% {
+        transform: translate(10px, -10px);
+    }
+    75% {
+        transform: translate(-10px, -10px);
+    }
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+.landing-main {
+    width: 100vw;
+    min-height: auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .landing-background {
+    background-image: radial-gradient(rgba(0, 0, 0, 0.1) 9%, transparent 9%);
+    background-position: 0% 0%;
+    background-size: 5vmin 5vmin;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    z-index: 1;
+    animation: subtleMove 10s infinite linear;
+  }
+  
+  .glow {
+    position: absolute;
+    width: 300px; /* Adjust the size as needed */
+    height: 300px; /* Adjust the size as needed */
+    border-radius: 50%;
+    background: radial-gradient(circle, #035a3cc7 0%, #035a3c00 50%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+.landing-text-side{
+    display:flex;
+    flex-direction:column;
+    min-width:100vw;
+    height:100vh;
+    justify-content:center;
+    align-items:center;
+    background-image: linear-gradient(to right, #035A3B  , #023121);
+}
+.landing-image{
+    position: absolute;
+    left:0;
+    width:30vw;
+    height:100vh;
+}
+.landing-info{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:space-evenly;
+    text-align: center;
+    width:50%;
+    height:29%;
+}
+.landing-pupsiks{
+    font-weight:bold;
+    font-size:84px;
+
+}
+.landing-text{
+    font-size: 70px;
+    text-align: right;
+    color: white;
+    font-weight: 100;
+    max-width: 700px;
+    z-index: 3;
+}
+.landing-button{
+    border:solid white 1px;
+    background-color:transparent;
+    max-width:430px;
+    width:75%;
+    min-height:60px;
+    color:white;
+    font-weight:bold;
+    font-size:24px;
+    z-index: 3;
+    transition: 0.4s;
+}
+.landing-button:hover{
+    background-color: rgba(0, 0, 0, 0.281);
+}
+.h1-landing-pupsiks{
+    display:flex;
+    width:100%;
+    height:32%;
+    justify-content:center;
+    align-items:center;
+}
+.p-landing-text{
+    display: flex;
+    width: 90%;
+    justify-content: right;
+    align-items: center;
+}
+.button-landing-button{
+    display: flex;
+    width: 90%;
+    height: 32%;
+    justify-content: right;
+    align-items: center;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.123);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.loading-text {
+    font-size: 24px;
+    color: #333;
+}
+
+/* Hide the loading overlay when transitioning to the next page */
+body.hidden .loading-overlay {
+    opacity: 1;
+}
+
+

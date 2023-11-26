@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styles from './Reset.module.css';
+import styles from '../css/Reset.module.css';
 
 function PasswordReset() {
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
 
@@ -10,7 +11,7 @@ function PasswordReset() {
     if (email === "") {
       setEmailError("Fill out the email");
     } else {
-      setEmailError("");
+      setEmailError(""); // Clear existing error
 
       // Use fetch to send the email to your PHP script
       try {
@@ -26,6 +27,10 @@ function PasswordReset() {
         if (response.ok) {
           const responseData = await response.json();
           console.log('Response from server:', responseData);
+
+          // Set the reset message as emailError
+          setEmailError(responseData.message);
+          
         } else {
           console.error('Error sending request:', response.statusText);
         }
@@ -35,7 +40,9 @@ function PasswordReset() {
     }
   };
 
+
   return (
+    <>
     <div className={styles.main}>
       <h1 className={styles.header}>Time For A New Password!</h1>
       <form className={styles.form} onSubmit={handleFormSubmit}>
@@ -54,6 +61,7 @@ function PasswordReset() {
         </button>
       </form>
     </div>
+    </>
   );
 }
 
