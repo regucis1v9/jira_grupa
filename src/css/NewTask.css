@@ -66,3 +66,24 @@
     margin-left:0;
   }
 }
+
+
+.Private {
+  background-color: red;
+  color: white;
+  width: 95%;
+  padding: 10px; /* Adjusted padding */
+  margin-bottom: 15px; /* Increased margin */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.Public {
+  background-color: green;
+  color: white;
+  width: 95%;
+  padding: 10px; /* Adjusted padding */
+  margin-bottom: 15px; /* Increased margin */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

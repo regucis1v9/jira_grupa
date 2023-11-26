@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2023 at 12:56 PM
+-- Generation Time: Nov 27, 2023 at 12:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,10 +42,17 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `user_id`, `title`, `description`, `due_date`, `accessibility`, `status`) VALUES
-(4, 3, 'Jaizdzivo', 'Kritiski tikt līdz šajai dienai', '2023-12-13', 'Public', 'On Hold'),
+(4, 3, 'Jaizdzivo', 'Kritiski tikt līdz šajai dienai', '2023-12-13', 'Private', 'Active'),
 (5, 3, 'Pabeight teķi', 'Pašsaprotami', '2025-06-30', 'Public', 'On Hold'),
 (6, 3, 'Yep', 'Yep', '2025-06-30', 'Private', 'Finished'),
-(8, 2, '123', '123', '2023-11-18', 'Public', 'Active');
+(8, 2, '123', '123', '2023-11-18', 'Public', 'Active'),
+(11, 6, 'asd', 'asd', '2023-11-29', 'Private', 'On Hold'),
+(12, 6, 'asd', 'asd', '2023-11-30', '', 'Active'),
+(13, 6, '11', '11', '2023-12-06', '', 'Active'),
+(14, 6, '11', '11', '2023-12-06', '', 'Active'),
+(15, 6, '123', '123', '2023-11-30', '', 'Active'),
+(16, 6, 'asdasdasd', 'asdasdasd', '2023-11-29', '', 'Active'),
+(17, 6, '123123123', '123123123', '2023-11-23', '', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +73,7 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables

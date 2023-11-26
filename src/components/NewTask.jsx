@@ -12,9 +12,22 @@ function NewTask() {
     description: '',
     due_date: '',
     id:id,
+    accessibility: 'Public',
   });
 
   const [error, setError] = useState(null); // New state for error handling
+
+  const handleAccessibilityChange = () => {
+    const accessibilityOptions = ['Public', 'Private'];
+    const currentAccessibilityIndex = accessibilityOptions.indexOf(task.accessibility);
+    const nextAccessibilityIndex = (currentAccessibilityIndex + 1) % accessibilityOptions.length;
+
+    const updatedTask = {
+      ...task,
+      accessibility: accessibilityOptions[nextAccessibilityIndex],
+    };
+    setTask(updatedTask);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +53,7 @@ function NewTask() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ ...task, status: 'Active' }),
       })
         .then((response) => {
           if (!response.ok) {
@@ -64,19 +77,23 @@ function NewTask() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...task, status: 'Active' }),
+      body: JSON.stringify({
+        ...task,
+        status: 'Active',
+        accessibility: task.accessibility || 'Public',
+      }),
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json(); // Parse response as JSON
-      })
-      .then((data) => {
-        console.log('Response:', data);
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log('Response from API:', data);
         setError(data.error);
         if (data.error) {
-
+          // Handle error case
         } else {
           // Handle successful response
           console.log('Task added successfully:', data);
@@ -136,6 +153,18 @@ function NewTask() {
                 value={task.due_date}
                 onChange={handleChange}
               />
+            </div>
+            <div>
+              <label>Accessibility:</label>
+              <div className='accessibility-options'>
+                <button
+                  className={task.accessibility === 'Public' ? 'Public' : 'Private'}
+                  onClick={handleAccessibilityChange}
+                  type='button' // Set type to 'button' to prevent form submission
+                >
+                  {task.accessibility === 'Public' ? 'Public' : 'Private'}
+                </button>
+              </div>
             </div>
             <p className='newTaskError'>{error}</p>
             <button className="SubmitButton" type="submit">Submit</button>

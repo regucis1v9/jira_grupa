@@ -9,9 +9,13 @@ function Tasks() {
     const username = Cookies.get('username');
     const id = Cookies.get('id');
     const [tasks, setTasks] = useState([]);
-    const [editTask, setEditTask] = useState({ accessibility: '', /* other properties */ });
+    const [editTask, setEditTask] = useState(null);
     const [sortBy, setSortBy] = useState('due_date');
     const [searchValue, setSearchValue] = useState('');
+    
+    // Add state variables for error and success messages
+    const [errorMessage, setErrorMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
 
@@ -171,7 +175,6 @@ const handleSaveChanges = async () => {
 
   try {
     if (editTask) {
-      
       const response = await fetch(`http://localhost/regnars/api/api.php?updateTask=${editTask.id}`, {
         method: 'PUT',
         headers: {
@@ -184,31 +187,30 @@ const handleSaveChanges = async () => {
         throw new Error('Failed to update task');
       }
 
-      // Fetch the updated tasks after successful update
-      fetch(`http://localhost/regnars/api/api.php?fetchTasks&id=${id}`, {
-        method: 'GET'
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('Fetched data:', data);
-          // Check the structure of the fetched data and set it accordingly
-          if (Array.isArray(data)) {
-            setTasks(data);
-          } else if (typeof data === 'object') {
-            // If data is an object, convert it to an array
-            setTasks([data]);
-          } else {
-            console.error('Invalid data format:', data);
-          }
-        })
-        .catch((error) => {
-          console.error('Error fetching tasks:', error);
-        });
+      const updatedTaskResponse = await fetch(`http://localhost/regnars/api/api.php?fetchTasks&id=${id}`, {
+        method: 'GET',
+      });
 
+      if (!updatedTaskResponse.ok) {
+        throw new Error('Failed to fetch updated tasks');
+      }
+
+      const updatedTasksData = await updatedTaskResponse.json();
+
+      // Check if the update operation has indeed modified the task
+      const updatedTask = updatedTasksData.find(task => task.id === editTask.id);
+
+      if (!updatedTask) {
+        throw new Error('Task not updated in the database');
+      }
+
+      setTasks(updatedTasksData);
+      console.log('Task updated successfully');
       handleCloseEdit(); // Close the edit modal after saving changes
     }
   } catch (error) {
     console.error('Error updating task:', error);
+    // Handle error states, set error messages, or perform necessary actions here
   }
 };
 
@@ -338,6 +340,8 @@ return (
 <>
 <SideBar onSidebarCollapseChange={handleSidebarCollapseChange} />
   <div className="Tasks">
+  {errorMessage && <div className="error-message">{errorMessage}</div>}
+  {successMessage && <div className="success-message">{successMessage}</div>}
     <form className={`searchBarContainer ${isSidebarCollapsed ? 'collapsed' : ''}`} onSubmit={handleSearch}>
         <input
           type="text"
@@ -383,7 +387,7 @@ return (
                 <td>{task.description}</td>
                 <td>{task.due_date}</td>
                 <td className={task.accessibility === 'Public' ? 'Public' : 'Private'}>
-                  {task.accessibility}
+                  {task.accessibility === 'Public' ? 'Public' : 'Private'}
                 </td>
                 <td className={task.status === 'Active' ? 'Active' : task.status === 'On Hold' ? 'OnHold' : 'Finished'}>
                   {task.status}

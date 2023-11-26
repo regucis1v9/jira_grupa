@@ -10,6 +10,7 @@ function ViewUser() {
   const { id } = useParams();
   const [tasks, setTasks] = useState([]);
   const [fetchedUser, setUsername] = useState();
+  const [publicTasks, setPublicTasks] = useState([]);
 
   useEffect(() => {
     const fetchUserTasks = async () => {
@@ -49,7 +50,7 @@ function ViewUser() {
             return;
           }
 
-      try {
+try {
         const response = await fetch(`http://localhost/regnars/api/viewUser.php`, {
           method: 'POST',
           headers: {
@@ -64,6 +65,10 @@ function ViewUser() {
 
         const data = await response.json();
         setTasks(data);
+
+        // Filter tasks to get only public tasks
+        const publicTasksFiltered = data.filter(task => task.accessibility === 'Public');
+        setPublicTasks(publicTasksFiltered);
       } catch (error) {
         console.error('Error fetching user tasks:', error);
         // Handle the error, e.g., show an error message to the user
@@ -154,30 +159,35 @@ function ViewUser() {
       <div className='main' >
         <div className={`TasksCont ${isSidebarCollapsed ? 'collapsed' : ''}`}>
         <div className="TableWrapper">
-          <h2>{fetchedUser} Tasks</h2>
+          <h2>{fetchedUser} Public Tasks</h2>
           <table>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
+                <th>Due Date</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
-            {Array.isArray(tasks) ? (
-              tasks.map((task, index) => (
-                <tr key={task.id}>
-                  <td>{(index + 1)}</td>
-                  <td>{task.title}</td>
-                  <td>{task.description}</td>
-                </tr>
-              ))
-              
-              ) : (
-                <p >No users found</p>
-              )}
-            </tbody>
-          </table>
+                {Array.isArray(publicTasks) ? (
+                  publicTasks.map((task, index) => (
+                    <tr key={task.id}>
+                      <td>{(index + 1)}</td>
+                      <td>{task.title}</td>
+                      <td>{task.description}</td>
+                      <td>{task.due_date}</td>
+                      <td className={task.status === 'Active' ? 'Active' : task.status === 'On Hold' ? 'OnHold' : 'Finished'}>
+                        {task.status}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <p>No public tasks found</p>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
